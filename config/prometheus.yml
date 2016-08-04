@@ -1,0 +1,12 @@
+global:
+  scrape_interval: "5s"  # This is for demo purposes, usually you’d use 60s
+
+# Rule files specifies a list of files from which rules are read.
+rule_files:
+    - 'alert.rules'
+
+scrape_configs:
+  - file_sd_configs:
+    - files:
+      - discovery/targets.json
+    job_name: node
