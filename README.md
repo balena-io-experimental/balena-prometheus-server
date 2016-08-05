@@ -16,4 +16,4 @@ More info can be found on the [resin-blog](https://resin.io/blog/prometheusv2/)
 2. Add required environment variables in `Dockerfile` or at runtime. 
 3. Optional: If you'd like persistent grafana storage run: `docker run -d -v /var/lib/grafana --name grafana-storage busybox:latest`
 3. ```docker build -t prometheus .```
-4. ```docker run -t -i -p 80:80 -p 3000:3000 --name promoContainer promo```
+4. ```docker run -t -i -p 80:80 -p 3000:3000 --name resinMonitor prometheus```
