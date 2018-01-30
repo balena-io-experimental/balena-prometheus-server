@@ -1,2 +1,3 @@
 discover/node_modules
 reset.sh
+.env

@@ -4,13 +4,11 @@ var resin = require("resin-sdk")
 var fs = require("fs")
 var _ = require("lodash")
 
-credentials = { email: process.env.RESIN_EMAIL, password: process.env.RESIN_PASS };
+var login = process.env.RESIN_TOKEN ?
+  resin.auth.loginWithToken(process.env.RESIN_TOKEN) :
+  resin.auth.login({ email: process.env.RESIN_EMAIL, password: process.env.RESIN_PASS });
 
-resin.auth.login(credentials, function(error) {
-  if (error != null) {
-    throw error;
-  }
-
+login.then(function () {
   console.log("Successfully authenticated with resin API")
   setInterval(function(){
     resin.models.device.getAllByApplication(process.env.RESIN_APP_NAME).then(function(devices) {

@@ -1,3 +1,8 @@
+if [ -f /.env ]; then
+  echo 'Reading config from .env'
+  source /.env
+fi
+
 # Start prometheus server
 service grafana-server start &&
 # Add datasource to grafana
