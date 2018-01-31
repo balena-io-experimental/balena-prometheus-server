@@ -1,25 +1,29 @@
-console.log('discovery started')
+console.log('Discovery started')
 
 var resin = require("resin-sdk")
 var fs = require("fs")
 var _ = require("lodash")
 
-credentials = { email: process.env.RESIN_EMAIL, password: process.env.RESIN_PASS };
+var login = process.env.RESIN_TOKEN ?
+  resin.auth.loginWithToken(process.env.RESIN_TOKEN) :
+  resin.auth.login({ email: process.env.RESIN_EMAIL, password: process.env.RESIN_PASS });
 
-resin.auth.login(credentials, function(error) {
-  if (error != null) {
-    throw error;
-  }
-
+login.then(function () {
   console.log("Successfully authenticated with resin API")
-  setInterval(function(){
-    resin.models.device.getAllByApplication(process.env.RESIN_APP_NAME).then(function(devices) {
-      if (error) throw error;
-      // format array and save it as json file
-      saveJson(_.map(devices, format));
-    });
-  }, process.env.DISCOVERY_INTERVAL);
-});
+
+  updateTargetDevices();
+  setInterval(updateTargetDevices, process.env.DISCOVERY_INTERVAL);
+}).catch(console.error);
+
+function updateTargetDevices() {
+  resin.models.device.getAllByApplication(process.env.RESIN_APP_NAME)
+  .then(function(devices) {
+    console.log('Found', devices.length, 'target devices');
+
+    // format array and save it as json file
+    saveJson(_.map(devices, format));
+  }).catch(console.error);
+}
 
 function saveJson(array) {
   fs.writeFile(__dirname + '/targets.json', JSON.stringify(array), 'utf8')

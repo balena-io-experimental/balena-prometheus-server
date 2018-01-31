@@ -9,15 +9,13 @@ ENV ALERTMANAGER_VERSION 0.2.0
 # arch
 ENV DIST_ARCH linux-amd64
 
+# User config
+COPY .env /.env
+
 # Target discovery configs
-ENV RESIN_EMAIL yourResinEmail
-ENV RESIN_PASS yourResinPassword
-ENV RESIN_APP_NAME yourAppName
 ENV DISCOVERY_INTERVAL 30000
 
 # Alert Manager configs
-ENV GMAIL_ACCOUNT yourGmail
-ENV GMAIL_AUTH_TOKEN youGmailpassword
 ENV THRESHOLD_CPU 50
 ENV THRESHOLD_FS 50
 ENV THRESHOLD_MEM 500

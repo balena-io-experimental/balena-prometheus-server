@@ -1,3 +1,8 @@
+if [ -f /.env ]; then
+  echo 'Reading config from .env'
+  source /.env
+fi
+
 #replace vars in all config file types
 echo 'LOADING CONFIGS'
 find /etc/config -type f -exec sed -i -e s/GMAIL_ACCOUNT/${GMAIL_ACCOUNT}/g \
