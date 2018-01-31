@@ -100,7 +100,7 @@
           "id": 4,
           "targets": [
             {
-              "expr": "count(up)",
+              "expr": "count(up == 1)",
               "intervalFactor": 2,
               "refId": "A",
               "step": 600,
