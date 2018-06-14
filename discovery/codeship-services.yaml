@@ -1,0 +1,27 @@
+compile:
+  build:
+    image: compile
+    path: .
+    dockerfile_path: Dockerfile
+  encrypted_env_file: deploy.env.encrypted
+  volumes:
+  - ./:/usr/src/app
+  # environment:
+
+aws:
+  image: codeship/aws-deployment
+  encrypted_env_file: deploy.env.encrypted
+  add_docker: true
+  volumes_from:
+  - compile
+
+# this service builds and deploys the image
+docker_builder:
+  build:
+    image: docker_builder
+    path: .
+    dockerfile_path: Dockerfile.deploy
+  add_docker: true
+  encrypted_env_file: deploy.env.encrypted
+  volumes_from:
+  - compile

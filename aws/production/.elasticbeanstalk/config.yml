@@ -1,0 +1,12 @@
+branch-defaults:
+  default:
+    environment: mira-resin-prometheus-production
+global:
+  application_name: mira-resin-prometheus
+  default_ec2_keyname: null
+  default_platform: 64bit Amazon Linux 2017.03 v2.6.0 running Docker 1.12.6
+  default_region: us-west-2
+  profile: null
+  sc: null
+deploy:
+  artifact: ./deploy.zip
