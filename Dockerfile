@@ -1,4 +1,4 @@
-FROM resin/nuc-node:0.10.22-wheezy
+FROM node:8.11.3-jessie
 
 # Enable systemd
 ENV INITSYSTEM on
@@ -10,9 +10,9 @@ ENV ALERTMANAGER_VERSION 0.2.0
 ENV DIST_ARCH linux-amd64
 
 # Target discovery configs
-ENV RESIN_EMAIL yourResinEmail
-ENV RESIN_PASS yourResinPassword
-ENV RESIN_APP_NAME yourAppName
+ENV RESIN_EMAIL engineering@getmira.com
+ENV RESIN_PASS ENCRYPT_ME
+ENV RESIN_APP_NAME STK1A32SCStaging
 ENV DISCOVERY_INTERVAL 30000
 
 # Alert Manager configs
@@ -29,7 +29,7 @@ EXPOSE 3000 80
 
 RUN apt-get update && apt-get install apt-transport-https
 RUN echo 'deb https://packagecloud.io/grafana/stable/debian/ wheezy main' >> /etc/apt/sources.list
-RUN curl https://packagecloud.io/gpg.key | sudo apt-key add -
+RUN curl https://packagecloud.io/gpg.key | apt-key add -
 
 # downloading utils
 RUN apt-get update && apt-get install -y wget build-essential libc6-dev grafana
@@ -38,13 +38,14 @@ WORKDIR /etc
 
 # get prometheus server
 RUN wget https://github.com/prometheus/prometheus/releases/download/$PROMETHEUS_VERSION/prometheus-$PROMETHEUS_VERSION.$DIST_ARCH.tar.gz  \
-	&& tar xvfz prometheus-$PROMETHEUS_VERSION.$DIST_ARCH.tar.gz \
-	&& rm prometheus-$PROMETHEUS_VERSION.$DIST_ARCH.tar.gz
+    && tar xvfz prometheus-$PROMETHEUS_VERSION.$DIST_ARCH.tar.gz \
+    && rm prometheus-$PROMETHEUS_VERSION.$DIST_ARCH.tar.gz
 
+## TODO: Pull into its own service
 # get prometheus alertmanager
 RUN wget https://github.com/prometheus/alertmanager/releases/download/$ALERTMANAGER_VERSION/alertmanager-$ALERTMANAGER_VERSION.$DIST_ARCH.tar.gz  \
-	&& tar xvfz alertmanager-$ALERTMANAGER_VERSION.$DIST_ARCH.tar.gz \
-	&& rm alertmanager-$ALERTMANAGER_VERSION.$DIST_ARCH.tar.gz
+    && tar xvfz alertmanager-$ALERTMANAGER_VERSION.$DIST_ARCH.tar.gz \
+    && rm alertmanager-$ALERTMANAGER_VERSION.$DIST_ARCH.tar.gz
 
 # add discovery service
 COPY discovery/ ./prometheus-$PROMETHEUS_VERSION.$DIST_ARCH/discovery/

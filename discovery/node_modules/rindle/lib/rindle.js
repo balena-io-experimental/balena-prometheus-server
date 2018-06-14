@@ -219,7 +219,7 @@ exports.onEvent = function(stream, event, callback) {
         args = undefined;
       }
       else if (args.length === 1) {
-        args = _.first(args);
+        args = _.head(args);
       }
 
       return resolve(args);

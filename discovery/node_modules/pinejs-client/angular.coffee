@@ -15,7 +15,7 @@
 	utils =
 		isBoolean: (v) ->
 			v in [true, false] or (angular.isObject(v) and Object::toString.call(v) is '[object Boolean]')
-	for method in ['isString', 'isNumber', 'isObject', 'isArray']
+	for method in ['isString', 'isNumber', 'isObject', 'isArray', 'isDate']
 		utils[method] = angular[method]
 
 	angular

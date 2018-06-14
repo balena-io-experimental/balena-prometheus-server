@@ -11,15 +11,13 @@ cache:
 # what combinations to test
 environment:
   matrix:
-    - nodejs_version: 0.10
-    - nodejs_version: 0.11
-    - nodejs_version: 0.12
+    - nodejs_version: 6
+    - nodejs_version: 4
 
 install:
   - ps: Install-Product node $env:nodejs_version x64
-  - npm -g install npm@2
+  - npm -g install npm
   - set PATH=%APPDATA%\npm;%PATH%
-  - npm install -g gulp
   - npm install
 
 build: off
@@ -27,5 +25,5 @@ build: off
 test_script:
   - node --version
   - npm --version
-  - ps: gulp test
-  - cmd: gulp test
+  - ps: npm test
+  - cmd: npm test

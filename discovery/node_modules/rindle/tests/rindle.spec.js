@@ -26,6 +26,7 @@ var m = require('mochainon');
 var _ = require('lodash');
 var Promise = require('bluebird');
 var fs = Promise.promisifyAll(require('fs'));
+var StringStream = require('string-to-stream')
 var StreamReadable = require('stream').Readable;
 var StreamPassThrough = require('stream').PassThrough;
 var EventEmitter = require('events').EventEmitter;
@@ -517,7 +518,7 @@ describe('Rindle:', function() {
 
     it('should return an instance of ReadableStream', function() {
       var stringStream = rindle.getStreamFromString('Hello World');
-      m.chai.expect(stringStream).to.be.an.instanceof(StreamReadable);
+      m.chai.expect(stringStream).to.be.an.instanceof(StringStream);
     });
 
     it('should be a stream containing the string characters', function() {
