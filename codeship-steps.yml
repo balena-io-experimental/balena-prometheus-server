@@ -1,11 +1,11 @@
 - type: serial
   steps:
   # Install Pubsub deps, run unit tests
-  - type: serial
-    service: compile
-    steps:
-      - command: sh ./scripts/compile.sh
-      - command: sh ./scripts/test.sh
+  # - type: serial
+  #   service: compile
+  #   steps:
+  #     - command: sh ./scripts/compile.sh
+  #     - command: sh ./scripts/test.sh
 
   # Setup env for Pubsub deploy
   - type: serial

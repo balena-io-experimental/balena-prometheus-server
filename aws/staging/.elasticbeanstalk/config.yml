@@ -1,6 +1,6 @@
 branch-defaults:
   default:
-    environment: mira-resin-prometheus-staging
+    environment: mira-resin-prometheus-test ## change to staging
 global:
   application_name: mira-resin-prometheus
   default_ec2_keyname: null

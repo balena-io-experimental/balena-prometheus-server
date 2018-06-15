@@ -1,13 +1,21 @@
 {
   "AWSEBDockerrunVersion": "1",
   "Image": {
-    "Name": "761633760558.dkr.ecr.us-west-2.amazonaws.com/pubsub:staging",
+    "Name": "761633760558.dkr.ecr.us-west-2.amazonaws.com/resin-prometheus-server:staging",
     "Update": "true"
   },
   "Ports": [
     {
       "ContainerPort": "80"
+    },
+    {
+      "HostPort": "3000",
+      "ContainerPort": "3000"
+    },
+    {
+      "HostPort": "9093",
+      "ContainerPort": "9093"
     }
   ],
-  "Logging": "/var/log/pubsub"
+  "Logging": "/var/log/app"
 }
