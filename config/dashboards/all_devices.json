@@ -51,7 +51,7 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "node_memory_MemFree{job='node'} + node_memory_Cached{job='node'} + node_memory_Buffers{job='node'}",
+              "expr": "node_memory_MemFree_bytes{job='node'} + node_memory_Cached_bytes{job='node'} + node_memory_Buffers_bytes{job='node'}",
               "intervalFactor": 2,
               "legendFormat": "{{ instance }}",
               "refId": "A",
@@ -215,7 +215,7 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "100 * (1 - avg by(instance)(irate(node_cpu{job='node',mode='idle'}[5m])))",
+              "expr": "100 * (1 - avg by(instance)(irate(node_cpu_seconds_total{job='node',mode='idle'}[5m])))",
               "intervalFactor": 2,
               "legendFormat": "{{ instance }}",
               "refId": "A",
@@ -292,7 +292,7 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "100 - node_filesystem_free{job='node',mountpoint='/'} / node_filesystem_size{job='node'} * 100",
+              "expr": "100 - node_filesystem_free_bytes{job='node',mountpoint='/'} / node_filesystem_size_bytes{job='node'} * 100",
               "intervalFactor": 2,
               "legendFormat": "{{ instance }}",
               "refId": "A",

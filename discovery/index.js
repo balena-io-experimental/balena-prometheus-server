@@ -1,8 +1,14 @@
 console.log('discovery started')
 
-var resin = require("resin-sdk")
+var resin = require("resin-sdk")({
+  apiUrl: "https://api.resin.io/"
+})
 var fs = require("fs")
 var _ = require("lodash")
+
+// console.log(process.env.RESIN_EMAIL)
+// console.log(process.env.RESIN_PASS)
+// console.log(process.env.RESIN_APP_NAME)
 
 credentials = { email: process.env.RESIN_EMAIL, password: process.env.RESIN_PASS };
 
@@ -31,7 +37,7 @@ function format(device) {
     targets: [url],
     labels: {
       resin_device_uuid: device.uuid,
-      resin_app: device.application[0].app_name
+      resin_app: process.env.RESIN_APP_NAME,
     }
   }
 }

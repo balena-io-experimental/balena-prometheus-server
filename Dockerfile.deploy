@@ -1,0 +1,5 @@
+# Pull the "docker" docker image to build the image
+FROM docker:1.9-dind
+
+WORKDIR /usr/src/app/
+ADD . /usr/src/app
