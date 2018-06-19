@@ -13,6 +13,8 @@ case $CI_BRANCH in
     cd aws/staging && \
     zip -r deploy.zip .ebextensions Dockerrun.aws.json && \
     eb setenv \
+    AUTH_USERNAME=$AUTH_USERNAME_STAGING \
+    AUTH_PASSWORD=$AUTH_PASSWORD_STAGING \
     RESIN_EMAIL=$RESIN_EMAIL \
     RESIN_PASS=$RESIN_PASS \
     RESIN_APP_NAME=$RESIN_APP_NAME && \
@@ -21,6 +23,8 @@ case $CI_BRANCH in
     cd aws/production && \
     zip -r deploy.zip .ebextensions Dockerrun.aws.json && \
     eb setenv \
+    AUTH_USERNAME=$AUTH_USERNAME_PRODUCTION \
+    AUTH_PASSWORD=$AUTH_PASSWORD_PRODUCTION \
     RESIN_EMAIL=$RESIN_EMAIL \
     RESIN_PASS=$RESIN_PASS \
     RESIN_APP_NAME=$RESIN_APP_NAME && \
