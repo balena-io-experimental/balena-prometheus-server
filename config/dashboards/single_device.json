@@ -71,7 +71,7 @@
           },
           "targets": [
             {
-              "expr": "100 * (1 - avg by(instance)(irate(node_cpu{job='node',mode='idle',instance=$device}[5m])))",
+              "expr": "100 * (1 - avg by(instance)(irate(node_cpu_seconds_total{job='node',mode='idle',instance=$device}[5m])))",
               "intervalFactor": 2,
               "legendFormat": "",
               "refId": "A",
@@ -149,7 +149,7 @@
           },
           "targets": [
             {
-              "expr": "(node_memory_MemFree{job='node',instance=$device} + node_memory_Cached{job='node',instance=$device} + node_memory_Buffers{job='node',instance=$device})/1000000",
+              "expr": "(node_memory_MemFree_bytes{job='node',instance=$device} + node_memory_Cached_bytes{job='node',instance=$device} + node_memory_Buffers_bytes{job='node',instance=$device})/1000000",
               "intervalFactor": 2,
               "legendFormat": "",
               "refId": "A",
@@ -227,7 +227,7 @@
           },
           "targets": [
             {
-              "expr": "100 - node_filesystem_free{job='node',instance=$device,mountpoint='/'} / node_filesystem_size{job='node'} * 100",
+              "expr": "100 - node_filesystem_free_bytes{job='node',instance=$device,mountpoint='/'} / node_filesystem_size_bytes{job='node'} * 100",
               "intervalFactor": 2,
               "refId": "A",
               "step": 600
@@ -292,30 +292,30 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "irate(node_network_receive_bytes{job='node',instance=$device,device='eth0'}[5m])",
+              "expr": "irate(node_network_receive_bytes_total{job='node',instance=$device,device='balena0'}[5m])",
               "intervalFactor": 2,
-              "legendFormat": "eth0 Received",
+              "legendFormat": "balena0 Received",
               "refId": "A",
               "step": 20
             },
             {
-              "expr": "irate(node_network_transmit_bytes{job='node',instance=$device,device='eth0'}[5m])",
+              "expr": "irate(node_network_transmit_bytes_total{job='node',instance=$device,device='balena0'}[5m])",
               "intervalFactor": 2,
-              "legendFormat": "eth0 Transmitted",
+              "legendFormat": "balena0 Transmitted",
               "refId": "B",
               "step": 20
             },
             {
-              "expr": "irate(node_network_receive_bytes{job='node',instance=$device,device='tun0'}[5m])",
+              "expr": "irate(node_network_receive_bytes_total{job='node',instance=$device,device='resin-vpn'}[5m])",
               "intervalFactor": 2,
-              "legendFormat": "tun0 Received",
+              "legendFormat": "resin-vpn Received",
               "refId": "C",
               "step": 20
             },
             {
-              "expr": "irate(node_network_transmit_bytes{job='node',instance=$device,device='tun0'}[5m])",
+              "expr": "irate(node_network_transmit_bytes_total{job='node',instance=$device,device='resin-vpn'}[5m])",
               "intervalFactor": 2,
-              "legendFormat": "tun0 Transmitted",
+              "legendFormat": "resin-vpn Transmitted",
               "refId": "D",
               "step": 20
             }
@@ -399,21 +399,21 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "node_memory_MemFree{job='node',instance=$device}",
+              "expr": "node_memory_MemFree_bytes{job='node',instance=$device}",
               "intervalFactor": 2,
               "legendFormat": " memory_MemFree",
               "refId": "A",
               "step": 60
             },
             {
-              "expr": "node_memory_Cached{job='node',instance=$device}",
+              "expr": "node_memory_Cached_bytes{job='node',instance=$device}",
               "intervalFactor": 2,
               "legendFormat": "memory_Cached",
               "refId": "B",
               "step": 60
             },
             {
-              "expr": " node_memory_Buffers{job='node',instance=$device}",
+              "expr": " node_memory_Buffers_bytes{job='node',instance=$device}",
               "intervalFactor": 2,
               "legendFormat": "memory_Buffers",
               "refId": "C",
@@ -490,7 +490,7 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "sum by (mode)(irate(node_cpu{job='node',instance=$device,mode!='idle'}[5m]))",
+              "expr": "sum by (mode)(irate(node_cpu_seconds_total{job='node',instance=$device,mode!='idle'}[5m]))",
               "intervalFactor": 2,
               "legendFormat": "{{mode}}",
               "refId": "A",
@@ -567,7 +567,7 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "100 - node_filesystem_free{job='node',instance=$device,mountpoint='/'} / node_filesystem_size{job='node'} * 100",
+              "expr": "100 - node_filesystem_free_bytes{job='node',instance=$device,mountpoint='/'} / node_filesystem_size_bytes{job='node'} * 100",
               "intervalFactor": 2,
               "legendFormat": " ",
               "refId": "A",

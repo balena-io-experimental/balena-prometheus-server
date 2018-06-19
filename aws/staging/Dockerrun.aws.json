@@ -7,14 +7,6 @@
   "Ports": [
     {
       "ContainerPort": "80"
-    },
-    {
-      "HostPort": "3000",
-      "ContainerPort": "3000"
-    },
-    {
-      "HostPort": "9093",
-      "ContainerPort": "9093"
     }
   ],
   "Logging": "/var/log/app"

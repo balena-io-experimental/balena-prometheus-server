@@ -11,7 +11,7 @@ ENV DIST_ARCH linux-amd64
 
 VOLUME ["/var/lib/grafana"]
 
-EXPOSE 3000 80 9093
+EXPOSE 80
 
 RUN apt-get update && apt-get install apt-transport-https
 RUN echo 'deb https://packagecloud.io/grafana/stable/debian/ jessie main' >> /etc/apt/sources.list
@@ -38,6 +38,15 @@ COPY discovery/ ./prometheus-$PROMETHEUS_VERSION.$DIST_ARCH/discovery/
 
 RUN cd prometheus-$PROMETHEUS_VERSION.$DIST_ARCH/discovery && npm install
 
+
+# install Nginx
+RUN apt-get install nginx -yq
+RUN rm /etc/nginx/sites-enabled/default
+COPY config/server.conf /etc/nginx/conf.d/server.conf
+
+RUN apt-get install apache2-utils -yq
+
+
 # Target discovery configs
 ENV RESIN_EMAIL engineering@getmira.com
 ENV RESIN_PASS CHANGE_ME
@@ -51,6 +60,10 @@ ENV THRESHOLD_CPU 50
 ENV THRESHOLD_FS 50
 ENV THRESHOLD_MEM 500
 ENV STORAGE_LOCAL_RETENTION 15d
+
+# Basic auth config
+ENV AUTH_USERNAME promAdmin
+ENV AUTH_PASSWORD promPass
 
 # Add config files
 COPY config/ ./config/

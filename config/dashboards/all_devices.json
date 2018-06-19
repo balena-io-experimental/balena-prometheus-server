@@ -215,7 +215,7 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "avg by(instance)(irate(node_cpu_frequency_hertz{job='node'}[5m]))",
+              "expr": "100 * (1 - avg by(instance)(irate(node_cpu_seconds_total{job='node',mode='idle'}[5m])))",
               "intervalFactor": 2,
               "legendFormat": "{{ instance }}",
               "refId": "A",
