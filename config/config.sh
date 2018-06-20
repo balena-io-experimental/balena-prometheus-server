@@ -15,3 +15,7 @@ mv -t /etc/alertmanager-$ALERTMANAGER_VERSION.$DIST_ARCH/ /etc/config/alertmanag
 mv /etc/config/grafana.ini /etc/grafana/grafana.ini
 mkdir /etc/grafana/dashboards
 mv /etc/config/dashboards/* /etc/grafana/dashboards
+
+# setup grafana provisioning dir
+mkdir -p /etc/grafana/provisioning/dashboards
+mv /etc/config/dashboards.yml /etc/grafana/provisioning/dashboards

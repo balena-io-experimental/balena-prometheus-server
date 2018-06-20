@@ -1,0 +1,29 @@
+- type: serial
+  steps:
+  # Install Pubsub deps, run unit tests
+  # - type: serial
+  #   service: compile
+  #   steps:
+  #     - command: sh ./scripts/compile.sh
+  #     - command: sh ./scripts/test.sh
+
+  # Setup env for Pubsub deploy
+  - type: serial
+    tag: ^(version|staging|production)
+    service: aws
+    steps:
+      - command: sh /usr/src/app/scripts/deploy.sh
+
+  # Push Pubsub image to ECR
+  - type: serial
+    tag: ^(version|staging|production)
+    service: docker_builder
+    steps:
+      - command: sh /usr/src/app/scripts/deploy_docker.sh
+
+  # Deploy Pubsub to EBS
+  - type: serial
+    tag: ^(version|staging|production)
+    service: aws
+    steps:
+      - command: sh /usr/src/app/scripts/update_eb.sh

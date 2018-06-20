@@ -1,2 +1,4 @@
-discover/node_modules
+discovery/node_modules
 reset.sh
+deploy.env
+*.aes
