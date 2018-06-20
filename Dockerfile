@@ -47,6 +47,10 @@ COPY config/server.conf /etc/nginx/conf.d/server.conf
 RUN apt-get install apache2-utils -yq
 
 
+# install prereqs for EFS mounting
+RUN apt-get install nfs-common -yq
+
+
 # Target discovery configs
 ENV RESIN_EMAIL engineering@getmira.com
 ENV RESIN_PASS CHANGE_ME

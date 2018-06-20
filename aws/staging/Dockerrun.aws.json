@@ -1,13 +1,36 @@
 {
-  "AWSEBDockerrunVersion": "1",
-  "Image": {
-    "Name": "761633760558.dkr.ecr.us-west-2.amazonaws.com/resin-prometheus-server:staging",
-    "Update": "true"
-  },
-  "Ports": [
-    {
-      "ContainerPort": "80"
-    }
-  ],
-  "Logging": "/var/log/app"
+    "AWSEBDockerrunVersion": "2",
+    "volumes": [
+        {
+            "name": "app",
+            "host": {
+                "sourcePath": "/var/app/current/app"
+            }
+        }
+    ],
+    "containerDefinitions": [
+        {
+            "name": "app-container",
+            "image": "761633760558.dkr.ecr.us-west-2.amazonaws.com/resin-prometheus-server:staging",
+            "essential": true,
+            "privileged": true,
+            "memory": 512,
+            "portMappings": [
+                {
+                    "hostPort": 80,
+                    "containerPort": 80
+                }
+            ],
+            "mountPoints": [
+                {
+                    "sourceVolume": "app",
+                    "containerPath": "/var/app"
+                },
+                {
+                    "sourceVolume": "awseb-logs-app-container",
+                    "containerPath": "/var/log/app"
+                }
+            ]
+        }
+    ]
 }

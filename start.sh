@@ -1,3 +1,12 @@
+# export EFS_FILE_SYSTEM_ID=XXXXXX # Set by Codeship envs
+export EFS_MOUNT_DIR=/efs
+export EFS_REGION=us-west-2
+
+mkdir -p $EFS_MOUNT_DIR
+
+echo "mount -t nfs4 -o nfsvers=4.1,rsize=1048576,wsize=1048576,hard,timeo=600,retrans=2 ${EFS_FILE_SYSTEM_ID}.efs.${EFS_REGION}.amazonaws.com:/ ${EFS_MOUNT_DIR}"
+    mount -t nfs4 -o nfsvers=4.1,rsize=1048576,wsize=1048576,hard,timeo=600,retrans=2 ${EFS_FILE_SYSTEM_ID}.efs.${EFS_REGION}.amazonaws.com:/ ${EFS_MOUNT_DIR}
+
 # Start grafana server
 service grafana-server start &&
 # wait for grafana to start
@@ -16,10 +25,7 @@ cd /etc/prometheus-$PROMETHEUS_VERSION.$DIST_ARCH/discovery/ && node ./index.js 
 # start prometheus
 cd /etc/prometheus-$PROMETHEUS_VERSION.$DIST_ARCH \
   && ./prometheus --web.listen-address ":8000" \
-  --storage.tsdb.path "/data" --storage.tsdb.retention ${STORAGE_LOCAL_RETENTION} \
+  --storage.tsdb.path "/efs/data" --storage.tsdb.retention ${STORAGE_LOCAL_RETENTION} \
   --log.level=debug &
 cd /etc/alertmanager-$ALERTMANAGER_VERSION.$DIST_ARCH \
   && ./alertmanager -config.file=alertmanager.yml
-
-
-"password": "'$AUTH_PASSWORD'"
