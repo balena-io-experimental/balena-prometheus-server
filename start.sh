@@ -28,4 +28,4 @@ cd /etc/prometheus-$PROMETHEUS_VERSION.$DIST_ARCH \
   --storage.tsdb.path "/efs/data" --storage.tsdb.retention ${STORAGE_LOCAL_RETENTION} \
   --log.level=debug &
 cd /etc/alertmanager-$ALERTMANAGER_VERSION.$DIST_ARCH \
-  && ./alertmanager -config.file=alertmanager.yml
+  && ./alertmanager --config.file=alertmanager.yml

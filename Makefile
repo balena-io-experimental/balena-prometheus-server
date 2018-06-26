@@ -1,3 +1,12 @@
+dev:
+	sh dev.sh
+
+build:
+	eval $(docker-machine env) && docker build -t prometheus .
+
+ssh-dev:
+	eval $(docker-machine env) && docker exec -it resinMonitor bash
+
 encryptenv:
 	jet encrypt deploy.env deploy.env.encrypted --key-path=mirainc_resin-prometheus-server.aes
 
