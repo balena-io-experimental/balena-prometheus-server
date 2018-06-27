@@ -7,20 +7,20 @@ groups:
   #     summary: Instance {{ $labels.instance }} is down
   - alert: cpu_threshold_exceeded
     expr: (100 * (1 - avg by(instance) (irate(node_cpu_seconds_total{job="node",mode="idle"}[5m]))))
-      > 90
+      > THRESHOLD_CPU
     annotations:
       description: This device's cpu usage has exceeded the percentage threshold with a value
         of {{ $value }}%.
       summary: Instance {{ $labels.instance }} CPU usage is dangerously high
   - alert: mem_threshold_exceeded
     expr: (node_memory_MemFree_bytes{job="node"} + node_memory_Cached_bytes{job="node"} + node_memory_Buffers_bytes{job="node"})
-      / 1e+06 < 400
+      / 1e+06 < THRESHOLD_MEM
     annotations:
       description: This device's memory usage has less than the threshold of free memory available with a value of {{ $value }}MB.
       summary: Instance {{ $labels.instance }} memory usage is dangerously high
   - alert: filesystem_threshold_exceeded
     expr: node_filesystem_avail_bytes{job="node",mountpoint="/"} / node_filesystem_size_bytes{job="node"}
-      * 100 < 25
+      * 100 < THRESHOLD_FS
     annotations:
       description: This device's filesystem has less than the percentage threshold of free space with a value of {{ $value }}%.
       summary: Instance {{ $labels.instance }} filesystem usage is dangerously high

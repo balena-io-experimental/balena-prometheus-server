@@ -1,5 +1,7 @@
 {
   "id": null,
+  "uid": "singledevice",
+  "version": 1,
   "title": "Single Device",
   "tags": [],
   "style": "dark",
@@ -691,7 +693,6 @@
     "list": []
   },
   "schemaVersion": 12,
-  "version": 4,
   "links": [],
   "gnetId": null
 }
