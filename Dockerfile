@@ -72,9 +72,6 @@ ENV AUTH_PASSWORD promPass
 # Add config files
 COPY config/ ./config/
 
-# move all config files into place and insert config vars
-RUN bash /etc/config/config.sh
-
 WORKDIR /
 
 COPY start.sh ./
