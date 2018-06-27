@@ -23,7 +23,7 @@ templates:
 receivers:
 - name: email-me
   email_configs:
-  - to: GMAIL_ACCOUNT
+  - to: NOTIFICATION_EMAIL
     from: GMAIL_ACCOUNT
     smarthost: smtp.gmail.com:587
     html: '{{ template "email.default.html" . }}'
