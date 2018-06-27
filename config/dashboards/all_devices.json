@@ -1,6 +1,8 @@
 {
   "id": null,
-  "title": "All devices",
+  "uid": "alldevices",
+  "version": 1,
+  "title": "All Devices",
   "tags": [],
   "style": "dark",
   "timezone": "browser",
@@ -371,7 +373,6 @@
     "list": []
   },
   "schemaVersion": 12,
-  "version": 0,
   "links": [],
   "gnetId": null
 }

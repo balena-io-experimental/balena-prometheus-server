@@ -2,13 +2,16 @@ global:
   scrape_interval: "5s"  # This is for demo purposes, usually you’d use 60s
 
 # Rule files specifies a list of files from which rules are read.
-## This is failing on parsing alert.rules
-## level=error ts=2018-06-15T23:20:20.177635079Z caller=manager.go:483 component="rule manager" msg="loading groups failed" err="yaml: unmarshal errors:\n  line 1: cannot unmarshal !!str `ALERT s...` into rulefmt.RuleGroups"
-# rule_files:
-#     - 'alert.rules'
+rule_files:
+    - 'alert.rules.yml'
 
 scrape_configs:
   - file_sd_configs:
     - files:
       - discovery/targets.json
     job_name: node
+
+alerting:
+  alertmanagers:
+    - static_configs:
+      - targets: ["localhost:9093"]

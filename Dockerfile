@@ -5,7 +5,7 @@ ENV INITSYSTEM on
 
 # versions
 ENV PROMETHEUS_VERSION 2.3.0
-ENV ALERTMANAGER_VERSION 0.2.0
+ENV ALERTMANAGER_VERSION 0.15.0
 # arch
 ENV DIST_ARCH linux-amd64
 
@@ -29,7 +29,7 @@ RUN wget https://github.com/prometheus/prometheus/releases/download/v$PROMETHEUS
 
 ## TODO: Pull into its own service
 # get prometheus alertmanager
-RUN wget https://github.com/prometheus/alertmanager/releases/download/$ALERTMANAGER_VERSION/alertmanager-$ALERTMANAGER_VERSION.$DIST_ARCH.tar.gz  \
+RUN wget https://github.com/prometheus/alertmanager/releases/download/v$ALERTMANAGER_VERSION/alertmanager-$ALERTMANAGER_VERSION.$DIST_ARCH.tar.gz  \
     && tar xvfz alertmanager-$ALERTMANAGER_VERSION.$DIST_ARCH.tar.gz \
     && rm alertmanager-$ALERTMANAGER_VERSION.$DIST_ARCH.tar.gz
 
@@ -58,9 +58,10 @@ ENV RESIN_APP_NAME STK1A32SCStaging
 ENV DISCOVERY_INTERVAL 30000
 
 # Alert Manager configs
-ENV GMAIL_ACCOUNT aric@getmira.com
-ENV GMAIL_AUTH_TOKEN youGmailpassword
-ENV THRESHOLD_CPU 50
+ENV GMAIL_ACCOUNT fake@getmira.com
+ENV GMAIL_AUTH_TOKEN CHANGE_ME
+ENV NOTIFICATION_EMAIL fake_notification@getmira.com
+ENV THRESHOLD_CPU 75
 ENV THRESHOLD_FS 50
 ENV THRESHOLD_MEM 500
 ENV STORAGE_LOCAL_RETENTION 15d
@@ -71,9 +72,6 @@ ENV AUTH_PASSWORD promPass
 
 # Add config files
 COPY config/ ./config/
-
-# move all config files into place and insert config vars
-RUN bash /etc/config/config.sh
 
 WORKDIR /
 
