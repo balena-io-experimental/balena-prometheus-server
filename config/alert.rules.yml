@@ -5,13 +5,13 @@ groups:
   #   expr: up == 0
   #   annotations:
   #     summary: Instance {{ $labels.instance }} is down
-  - alert: cpu_threshold_exceeded
-    expr: (100 * (1 - avg by(instance) (irate(node_cpu_seconds_total{job="node",mode="idle"}[5m]))))
-      > THRESHOLD_CPU
-    annotations:
-      description: This device's cpu usage has exceeded the percentage threshold with a value
-        of {{ $value }}%.
-      summary: Instance {{ $labels.instance }} CPU usage is dangerously high
+  # - alert: cpu_threshold_exceeded
+  #   expr: (100 * (1 - avg by(instance) (irate(node_cpu_seconds_total{job="node",mode="idle"}[5m]))))
+  #     > THRESHOLD_CPU
+  #   annotations:
+  #     description: This device's cpu usage has exceeded the percentage threshold with a value
+  #       of {{ $value }}%.
+  #     summary: Instance {{ $labels.instance }} CPU usage is dangerously high
   - alert: mem_threshold_exceeded
     expr: (node_memory_MemFree_bytes{job="node"} + node_memory_Cached_bytes{job="node"} + node_memory_Buffers_bytes{job="node"})
       / 1e+06 < THRESHOLD_MEM
