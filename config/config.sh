@@ -6,6 +6,7 @@ find /etc/config -type f -exec sed -i -e s/GMAIL_ACCOUNT/${GMAIL_ACCOUNT}/g \
 -e s/THRESHOLD_CPU/${THRESHOLD_CPU}/g \
 -e s/THRESHOLD_MEM/${THRESHOLD_MEM}/g \
 -e s/THRESHOLD_FS/${THRESHOLD_FS}/g \
+-e s/PUBLIC_HOST_NAME/${PUBLIC_HOST_NAME}/g \
 -e s/ALERTMANAGER_PATH/alertmanager-${ALERTMANAGER_VERSION}.${DIST_ARCH}/g \
 {} \;
 

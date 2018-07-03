@@ -1,6 +1,6 @@
 {{ define "__alertmanager" }}AlertManager{{ end }}
-{{ define "__alertmanagerURL" }}https://127.0.0.1/alerts/?receiver={{ .Receiver }}{{ end }}
-{{ define "__resinDashboardURL" }}https://dashboard.resin.io/apps/{{ .CommonLabels.resin_app }}/devices/{{ end }}
+{{ define "__alertmanagerURL" }}https://PUBLIC_HOST_NAME/alertmanager/#/alerts/?receiver={{ .Receiver }}{{ end }}
+{{ define "__resinDashboardURL" }}https://dashboard.resin.io/apps{{ end }}
 
 {{ define "__subject" }}[{{ .Status | toUpper }}{{ if eq .Status "firing" }}:{{ .Alerts.Firing | len }}{{ end }}] {{ .GroupLabels.SortedPairs.Values | join " " }} {{ if gt (len .CommonLabels) (len .GroupLabels) }}({{ with .CommonLabels.Remove .GroupLabels.Names }}{{ .Values | join " " }}{{ end }}){{ end }}{{ end }}
 {{ define "__description" }}{{ end }}
@@ -92,7 +92,7 @@ SOFTWARE.
                 <tr style="font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; box-sizing: border-box; font-size: 14px; margin: 0;">
                   <td style="font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; box-sizing: border-box; font-size: 14px; vertical-align: top; margin: 0; padding: 0 0 20px;" valign="top">
                     <a href="{{ template "__alertmanagerURL" . }}" style="font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; box-sizing: border-box; font-size: 14px; color: #FFF; text-decoration: none; line-height: 2em; font-weight: bold; text-align: center; cursor: pointer; display: inline-block; border-radius: 5px; text-transform: capitalize; background-color: #348eda; margin: 0; border-color: #348eda; border-style: solid; border-width: 10px 20px;">View in {{ template "__alertmanager" . }}</a>
-                    <a href="{{ template "__resinDashboardURL" . }}" style="font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; box-sizing: border-box; font-size: 14px; color: #FFF; text-decoration: none; line-height: 2em; font-weight: bold; text-align: center; cursor: pointer; display: inline-block; border-radius: 5px; text-transform: capitalize; background-color: #348eda; margin: 0; border-color: #348eda; border-style: solid; border-width: 10px 20px;">View in resin.io</a>
+                    <a href="{{ template "__resinDashboardURL" . }}" style="font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; box-sizing: border-box; font-size: 14px; color: #FFF; text-decoration: none; line-height: 2em; font-weight: bold; text-align: center; cursor: pointer; display: inline-block; border-radius: 5px; text-transform: capitalize; background-color: #348eda; margin: 0; border-color: #348eda; border-style: solid; border-width: 10px 20px;">View Resin.io Dashboard</a>
                   </td>
                 </tr>
                 {{ if gt (len .Alerts.Firing) 0 }}
