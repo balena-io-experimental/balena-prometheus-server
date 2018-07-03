@@ -70,6 +70,8 @@ ENV STORAGE_LOCAL_RETENTION 15d
 ENV AUTH_USERNAME promAdmin
 ENV AUTH_PASSWORD promPass
 
+ENV PUBLIC_HOST_NAME 192.168.99.100
+
 # Add config files
 COPY config/ ./config/
 

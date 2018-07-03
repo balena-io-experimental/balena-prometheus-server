@@ -1,6 +1,9 @@
 dev:
 	sh dev.sh
 
+dev-env:
+	sh dev-env.sh
+
 build:
 	eval $(docker-machine env) && docker build -t prometheus .
 
