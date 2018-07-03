@@ -38,6 +38,9 @@ function format(device) {
     labels: {
       resin_device_uuid: device.uuid,
       resin_app: process.env.RESIN_APP_NAME,
+      name: device.name,
+      os_version: device.os_version,
+      commit: device.is_on__commit,
     }
   }
 }
