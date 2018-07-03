@@ -492,7 +492,7 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "sum by (mode)(irate(node_cpu_seconds_total{job='node',instance=$device,mode!='idle'}[5m]))",
+              "expr": "100 * (avg by (mode)(irate(node_cpu_seconds_total{job='node',instance=$device,mode!='idle'}[5m])))",
               "intervalFactor": 2,
               "legendFormat": "{{mode}}",
               "refId": "A",
