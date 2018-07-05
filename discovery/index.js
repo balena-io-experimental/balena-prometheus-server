@@ -18,14 +18,19 @@ resin.auth.login(credentials, function(error) {
   }
 
   console.log("Successfully authenticated with resin API")
-  setInterval(function(){
-    resin.models.device.getAllByApplication(process.env.RESIN_APP_NAME).then(function(devices) {
-      if (error) throw error;
-      // format array and save it as json file
-      saveJson(_.map(devices, format));
-    });
-  }, process.env.DISCOVERY_INTERVAL);
+  fetchResinDevices();
+  setInterval(fetchResinDevices, process.env.DISCOVERY_INTERVAL);
 });
+
+function fetchResinDevices() {
+  console.log("Fetching Resin devices");
+  resin.models.device.getAllByApplication(process.env.RESIN_APP_NAME).then(function(devices) {
+    // format array and save it as json file
+    saveJson(_.map(devices, format));
+  }).catch(function(error) {
+    throw error;
+  });
+}
 
 function saveJson(array) {
   fs.writeFile(__dirname + '/targets.json', JSON.stringify(array), 'utf8')
