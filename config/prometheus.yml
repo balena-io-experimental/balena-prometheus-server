@@ -1,5 +1,5 @@
 global:
-  scrape_interval: "5s"  # This is for demo purposes, usually you’d use 60s
+  scrape_interval: "60s"  # This is for demo purposes, usually you’d use 60s
 
 # Rule files specifies a list of files from which rules are read.
 rule_files:
@@ -10,6 +10,12 @@ scrape_configs:
     - files:
       - discovery/targets.json
     job_name: node
+  - job_name: prometheus
+    static_configs:
+    - targets: ['localhost:8000']
+  - job_name: prometheus_node
+    static_configs:
+    - targets: ['localhost:9100']
 
 alerting:
   alertmanagers:
