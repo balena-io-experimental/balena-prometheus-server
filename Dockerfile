@@ -51,6 +51,16 @@ RUN apt-get install apache2-utils -yq
 RUN apt-get install nfs-common -yq
 
 
+# install node-exporter for prometheus server metrics
+WORKDIR /usr/src/tmp
+RUN wget https://github.com/prometheus/node_exporter/releases/download/v0.16.0/node_exporter-0.16.0.linux-amd64.tar.gz  \
+    && tar xvfz node_exporter-0.16.0.linux-amd64.tar.gz \
+    && rm node_exporter-0.16.0.linux-amd64.tar.gz
+RUN mv node_exporter-0.16.0.linux-amd64 /usr/src/node_exporter
+
+
+WORKDIR /etc
+
 # Target discovery configs
 ENV RESIN_EMAIL engineering@getmira.com
 ENV RESIN_PASS CHANGE_ME
