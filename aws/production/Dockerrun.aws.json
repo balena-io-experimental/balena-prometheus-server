@@ -14,7 +14,7 @@
             "image": "761633760558.dkr.ecr.us-west-2.amazonaws.com/resin-prometheus-server:production",
             "essential": true,
             "privileged": true,
-            "memory": 3072,
+            "memory": 6144,
             "portMappings": [
                 {
                     "hostPort": 80,
