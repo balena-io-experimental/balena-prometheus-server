@@ -28,7 +28,7 @@
             "threshold2": null,
             "threshold2Color": "rgba(234, 112, 112, 0.22)"
           },
-          "id": 2,
+          "id": 10,
           "isNew": true,
           "legend": {
             "avg": false,
@@ -53,7 +53,7 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "node_memory_MemFree_bytes{job='node'} + node_memory_Cached_bytes{job='node'} + node_memory_Buffers_bytes{job='node'}",
+              "expr": "sum(up)",
               "intervalFactor": 2,
               "legendFormat": "{{ instance }}",
               "refId": "A",
@@ -62,7 +62,7 @@
           ],
           "timeFrom": null,
           "timeShift": null,
-          "title": "Available Memory",
+          "title": "Devices Up",
           "tooltip": {
             "msResolution": false,
             "shared": true,
@@ -350,6 +350,91 @@
             "threshold2": null,
             "threshold2Color": "rgba(234, 112, 112, 0.22)"
           },
+          "id": 3,
+          "isNew": true,
+          "legend": {
+            "avg": false,
+            "current": false,
+            "max": false,
+            "min": false,
+            "show": true,
+            "total": false,
+            "values": false
+          },
+          "lines": true,
+          "linewidth": 2,
+          "links": [],
+          "nullPointMode": "connected",
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "span": 12,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "expr": "topk(10, node_memory_MemFree_bytes{job='node'} + node_memory_Cached_bytes{job='node'} + node_memory_Buffers_bytes{job='node'})",
+              "intervalFactor": 2,
+              "legendFormat": "{{ instance }}",
+              "refId": "A",
+              "step": 60
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "Available Memory",
+          "tooltip": {
+            "msResolution": false,
+            "shared": true,
+            "sort": 0,
+            "value_type": "cumulative"
+          },
+          "type": "graph",
+          "xaxis": {
+            "show": true
+          },
+          "yaxes": [
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            },
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
+          ]
+        }
+      ],
+      "title": "Row"
+    },
+    {
+      "collapse": false,
+      "editable": true,
+      "height": "250px",
+      "panels": [
+        {
+          "aliasColors": {},
+          "bars": false,
+          "datasource": "Prometheus",
+          "editable": true,
+          "error": false,
+          "fill": 1,
+          "grid": {
+            "threshold1": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2": null,
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
           "id": 1,
           "isNew": true,
           "legend": {
@@ -370,12 +455,12 @@
           "points": false,
           "renderer": "flot",
           "seriesOverrides": [],
-          "span": 6,
+          "span": 12,
           "stack": false,
           "steppedLine": false,
           "targets": [
             {
-              "expr": "100 * (1 - avg by(instance)(irate(node_cpu_seconds_total{job='node',mode='idle'}[5m])))",
+              "expr": "topk(10, 100 * (1 - avg by(instance)(irate(node_cpu_seconds_total{job='node',mode='idle'}[5m]))))",
               "intervalFactor": 2,
               "legendFormat": "{{ instance }}",
               "refId": "A",
@@ -413,7 +498,15 @@
               "show": true
             }
           ]
-        },
+        }
+      ],
+      "title": "New row"
+    },
+    {
+      "collapse": false,
+      "editable": true,
+      "height": "250px",
+      "panels": [
         {
           "aliasColors": {},
           "bars": false,
@@ -427,7 +520,7 @@
             "threshold2": null,
             "threshold2Color": "rgba(234, 112, 112, 0.22)"
           },
-          "id": 3,
+          "id": 7,
           "isNew": true,
           "legend": {
             "avg": false,
@@ -447,12 +540,12 @@
           "points": false,
           "renderer": "flot",
           "seriesOverrides": [],
-          "span": 6,
+          "span": 12,
           "stack": false,
           "steppedLine": false,
           "targets": [
             {
-              "expr": "100 - node_filesystem_free_bytes{job='node',mountpoint='/'} / node_filesystem_size_bytes{job='node'} * 100",
+              "expr": "topk(10, 100 - node_filesystem_free_bytes{job='node',mountpoint='/'} / node_filesystem_size_bytes{job='node'} * 100)",
               "intervalFactor": 2,
               "legendFormat": "{{ instance }}",
               "refId": "A",
