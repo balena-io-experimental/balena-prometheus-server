@@ -14,7 +14,7 @@
             "image": "761633760558.dkr.ecr.us-west-2.amazonaws.com/resin-prometheus-server:staging",
             "essential": true,
             "privileged": true,
-            "memory": 512,
+            "memory": 800,
             "portMappings": [
                 {
                     "hostPort": 80,
