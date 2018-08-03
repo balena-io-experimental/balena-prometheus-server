@@ -1,7 +1,7 @@
-dev:
+dev: build
 	sh dev.sh
 
-dev-env:
+dev-env: build
 	sh dev-env.sh
 
 build:
