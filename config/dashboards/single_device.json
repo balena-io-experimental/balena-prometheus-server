@@ -742,7 +742,7 @@
           "unit": "short"
         },
         {
-          "alias": "",
+          "alias": "Received",
           "colorMode": null,
           "colors": [
             "rgba(245, 54, 54, 0.9)",
@@ -876,7 +876,7 @@
           "unit": "short"
         },
         {
-          "alias": "",
+          "alias": "Received",
           "colorMode": null,
           "colors": [
             "rgba(245, 54, 54, 0.9)",
