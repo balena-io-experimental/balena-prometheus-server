@@ -22,7 +22,7 @@ nginx &&
 curl 'http://admin:changeme@127.0.0.1:3000/api/datasources' -X POST -H 'Content-Type: application/json;charset=UTF-8' --data-binary '{"name":"Prometheus","type":"prometheus","url":"http://localhost:8000","access":"proxy","isDefault":true}'
 # Set prometheus admin user
 curl 'http://admin:changeme@127.0.0.1:3000/api/users/1' -X PUT -H 'Content-Type: application/json;charset=UTF-8' --data-binary '{"name":"Prometheus User", "email":"engineering@getmira.com", "login": "'$AUTH_USERNAME'", "theme": "dark"}'
-curl 'http://admin:changeme@127.0.0.1:3000/api/users/2' -X PUT -H 'Content-Type: application/json;charset=UTF-8' --data-binary '{"name":"Prometheus Read-Only User", "email":"engineering@getmira.com", "login": "'$READONLY_USERNAME'", "password": "'$READONLY_PASSWORD'", "theme": "dark"}'
+curl 'http://admin:changeme@127.0.0.1:3000/api/admin/users' -X POST -H 'Content-Type: application/json;charset=UTF-8' --data-binary '{"name":"Prometheus Read-Only User", "email":"engineering+readonlymetrics@getmira.com", "login": "'$READONLY_USERNAME'", "password": "'$READONLY_PASSWORD'", "theme": "dark"}'
 # Change admin user password
 curl 'http://'$AUTH_USERNAME':changeme@127.0.0.1:3000/api/user/password' -X PUT -H 'Content-Type: application/json;charset=UTF-8' --data-binary '{"oldPassword": "changeme", "newPassword": "'$AUTH_PASSWORD'", "confirmNew": "'$AUTH_PASSWORD'"}'
 # start node exporter for server metrics
