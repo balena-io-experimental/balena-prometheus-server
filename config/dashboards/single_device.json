@@ -1435,7 +1435,7 @@
     ]
   },
   "timezone": "browser",
-  "title": "Single Device 2",
-  "uid": "singledevice2",
+  "title": "Single Device",
+  "uid": "singledevice",
   "version": 6
 }
