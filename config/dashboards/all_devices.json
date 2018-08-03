@@ -557,6 +557,22 @@
           "unit": "short"
         },
         {
+          "alias": "Free (GB)",
+          "colorMode": null,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "dateFormat": "YYYY-MM-DD HH:mm:ss",
+          "decimals": 2,
+          "mappingType": 1,
+          "pattern": "Value",
+          "thresholds": [],
+          "type": "number",
+          "unit": "decgbytes"
+        },
+        {
           "alias": "",
           "colorMode": null,
           "colors": [
@@ -573,7 +589,7 @@
       ],
       "targets": [
         {
-          "expr": "sort_desc(bottomk(10, node_memory_MemFree_bytes{job='node'} + node_memory_Cached_bytes{job='node'} + node_memory_Buffers_bytes{job='node'}))",
+          "expr": "sort_desc(bottomk(10, (node_memory_MemFree_bytes{job='node'} + node_memory_Cached_bytes{job='node'} + node_memory_Buffers_bytes{job='node'}) / 1000000000))",
           "format": "table",
           "hide": false,
           "instant": true,
@@ -581,7 +597,7 @@
           "refId": "A"
         }
       ],
-      "title": "Current Least Memory (Bottom 10)",
+      "title": "Current Least Memory (GB) (Bottom 10)",
       "transform": "table",
       "type": "table"
     },
@@ -701,6 +717,22 @@
           "type": "hidden"
         },
         {
+          "alias": "Usage (%)",
+          "colorMode": null,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "dateFormat": "YYYY-MM-DD HH:mm:ss",
+          "decimals": 2,
+          "mappingType": 1,
+          "pattern": "Value",
+          "thresholds": [],
+          "type": "number",
+          "unit": "percent"
+        },
+        {
           "alias": "",
           "colorMode": null,
           "colors": [
@@ -717,7 +749,7 @@
       ],
       "targets": [
         {
-          "expr": "sort(topk(10, 100 * (1 - avg by(resin_device_uuid)(irate(node_cpu_seconds_total{job='node',mode='idle'}[5m])))))",
+          "expr": "sort(topk(10, 100 * (1 - avg by(resin_device_name,resin_device_uuid)(irate(node_cpu_seconds_total{job='node',mode='idle'}[5m])))))",
           "format": "table",
           "hide": false,
           "instant": true,
@@ -838,12 +870,6 @@
         "desc": true
       },
       "styles": [
-        {
-          "alias": "Time",
-          "dateFormat": "YYYY-MM-DD HH:mm:ss",
-          "pattern": "Time",
-          "type": "hidden"
-        },
         {
           "alias": "",
           "colorMode": null,
@@ -968,6 +994,38 @@
           "decimals": 2,
           "mappingType": 1,
           "pattern": "resin_device_os_version",
+          "thresholds": [],
+          "type": "hidden",
+          "unit": "short"
+        },
+        {
+          "alias": "Usage (%)",
+          "colorMode": null,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "dateFormat": "YYYY-MM-DD HH:mm:ss",
+          "decimals": 2,
+          "mappingType": 1,
+          "pattern": "Value",
+          "thresholds": [],
+          "type": "number",
+          "unit": "percent"
+        },
+        {
+          "alias": "",
+          "colorMode": null,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "dateFormat": "YYYY-MM-DD HH:mm:ss",
+          "decimals": 2,
+          "mappingType": 1,
+          "pattern": "Time",
           "thresholds": [],
           "type": "hidden",
           "unit": "short"
@@ -1116,7 +1174,23 @@
           "alias": "Time",
           "dateFormat": "YYYY-MM-DD HH:mm:ss",
           "pattern": "Time",
-          "type": "date"
+          "type": "hidden"
+        },
+        {
+          "alias": "Received (GB)",
+          "colorMode": null,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "dateFormat": "YYYY-MM-DD HH:mm:ss",
+          "decimals": 2,
+          "mappingType": 1,
+          "pattern": "Value",
+          "thresholds": [],
+          "type": "number",
+          "unit": "decgbytes"
         },
         {
           "alias": "",
@@ -1135,14 +1209,14 @@
       ],
       "targets": [
         {
-          "expr": "sort(topk(10, (sum by (resin_device_name)(node_network_transmit_bytes_total{job='node',device!='lo'})) / 1000000000))",
+          "expr": "sort(topk(10, (sum by (resin_device_name,resin_device_uuid)(node_network_receive_bytes_total{job='node',device!='lo'})) / 1000000000))",
           "format": "table",
           "instant": true,
           "intervalFactor": 1,
           "refId": "A"
         }
       ],
-      "title": "Highest Total Network Usage (GB)",
+      "title": "Highest Total Network Receive (GB)",
       "transform": "table",
       "type": "table"
     }

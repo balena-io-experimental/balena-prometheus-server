@@ -15,7 +15,8 @@
   "editable": true,
   "gnetId": null,
   "graphTooltip": 0,
-  "iteration": 1533247487963,
+  "id": 4,
+  "iteration": 1533320614113,
   "links": [],
   "panels": [
     {
@@ -83,6 +84,8 @@
       "targets": [
         {
           "expr": "100 * (1 - avg by(instance)(irate(node_cpu_seconds_total{job='node',mode='idle',instance=$device}[5m])))",
+          "format": "time_series",
+          "instant": true,
           "intervalFactor": 2,
           "legendFormat": "",
           "refId": "A",
@@ -167,6 +170,8 @@
       "targets": [
         {
           "expr": "(node_memory_MemFree_bytes{job='node',instance=$device} + node_memory_Cached_bytes{job='node',instance=$device} + node_memory_Buffers_bytes{job='node',instance=$device})/1000000",
+          "format": "time_series",
+          "instant": true,
           "intervalFactor": 2,
           "legendFormat": "",
           "refId": "A",
@@ -251,6 +256,8 @@
       "targets": [
         {
           "expr": "100 - node_filesystem_free_bytes{job='node',instance=$device,mountpoint='/'} / node_filesystem_size_bytes{job='node'} * 100",
+          "format": "time_series",
+          "instant": true,
           "intervalFactor": 2,
           "refId": "A",
           "step": 600
@@ -603,6 +610,7 @@
       "targets": [
         {
           "expr": "irate(node_network_receive_bytes_total{job='node',instance=$device,device='balena0'}[5m])",
+          "format": "time_series",
           "intervalFactor": 2,
           "legendFormat": "balena0 Received",
           "refId": "A",
@@ -610,6 +618,7 @@
         },
         {
           "expr": "irate(node_network_transmit_bytes_total{job='node',instance=$device,device='balena0'}[5m])",
+          "format": "time_series",
           "intervalFactor": 2,
           "legendFormat": "balena0 Transmitted",
           "refId": "B",
@@ -617,6 +626,7 @@
         },
         {
           "expr": "irate(node_network_receive_bytes_total{job='node',instance=$device,device='resin-vpn'}[5m])",
+          "format": "time_series",
           "intervalFactor": 2,
           "legendFormat": "resin-vpn Received",
           "refId": "C",
@@ -624,10 +634,40 @@
         },
         {
           "expr": "irate(node_network_transmit_bytes_total{job='node',instance=$device,device='resin-vpn'}[5m])",
+          "format": "time_series",
           "intervalFactor": 2,
           "legendFormat": "resin-vpn Transmitted",
           "refId": "D",
           "step": 20
+        },
+        {
+          "expr": "irate(node_network_transmit_bytes_total{job='node',instance=$device,device='wlp1s0'}[5m])",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "legendFormat": "wlp1s0 Transmitted",
+          "refId": "E"
+        },
+        {
+          "expr": "irate(node_network_receive_bytes_total{job='node',instance=$device,device='wlp1s0'}[5m])",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "legendFormat": "wlp1s0 Received",
+          "refId": "F"
+        },
+        {
+          "expr": "irate(node_network_receive_bytes_total{job='node',instance=$device,device=~'enp0s20.*'}[5m])",
+          "format": "time_series",
+          "hide": false,
+          "intervalFactor": 1,
+          "legendFormat": "enp0s20 Received",
+          "refId": "G"
+        },
+        {
+          "expr": "irate(node_network_transmit_bytes_total{job='node',instance=$device,device=~'enp0s20.*'}[5m])",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "legendFormat": "enp0s20 Trasmitted",
+          "refId": "H"
         }
       ],
       "thresholds": [],
@@ -650,7 +690,7 @@
       },
       "yaxes": [
         {
-          "format": "short",
+          "format": "decbytes",
           "label": null,
           "logBase": 1,
           "max": null,
@@ -676,8 +716,8 @@
       "datasource": null,
       "fontSize": "100%",
       "gridPos": {
-        "h": 4,
-        "w": 4,
+        "h": 3,
+        "w": 6,
         "x": 12,
         "y": 21
       },
@@ -838,7 +878,7 @@
           "mappingType": 1,
           "pattern": "device",
           "thresholds": [],
-          "type": "hidden",
+          "type": "string",
           "unit": "short"
         },
         {
@@ -876,19 +916,19 @@
       "datasource": null,
       "fontSize": "100%",
       "gridPos": {
-        "h": 4,
-        "w": 4,
-        "x": 16,
+        "h": 3,
+        "w": 6,
+        "x": 18,
         "y": 21
       },
-      "id": 11,
+      "id": 15,
       "links": [],
       "pageSize": null,
       "scroll": true,
       "showHeader": true,
       "sort": {
-        "col": 9,
-        "desc": false
+        "col": 0,
+        "desc": true
       },
       "styles": [
         {
@@ -896,22 +936,6 @@
           "dateFormat": "YYYY-MM-DD HH:mm:ss",
           "pattern": "Time",
           "type": "date"
-        },
-        {
-          "alias": "",
-          "colorMode": null,
-          "colors": [
-            "rgba(245, 54, 54, 0.9)",
-            "rgba(237, 129, 40, 0.89)",
-            "rgba(50, 172, 45, 0.97)"
-          ],
-          "dateFormat": "YYYY-MM-DD HH:mm:ss",
-          "decimals": 2,
-          "mappingType": 1,
-          "pattern": "instance",
-          "thresholds": [],
-          "type": "hidden",
-          "unit": "short"
         },
         {
           "alias": "",
@@ -940,9 +964,89 @@
           "dateFormat": "YYYY-MM-DD HH:mm:ss",
           "decimals": 2,
           "mappingType": 1,
+          "pattern": "instance",
+          "thresholds": [],
+          "type": "hidden",
+          "unit": "short"
+        },
+        {
+          "alias": "",
+          "colorMode": null,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "dateFormat": "YYYY-MM-DD HH:mm:ss",
+          "decimals": 2,
+          "mappingType": 1,
           "pattern": "job",
           "thresholds": [],
           "type": "hidden",
+          "unit": "short"
+        },
+        {
+          "alias": "",
+          "colorMode": null,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "dateFormat": "YYYY-MM-DD HH:mm:ss",
+          "decimals": 2,
+          "mappingType": 1,
+          "pattern": "__name__",
+          "thresholds": [],
+          "type": "hidden",
+          "unit": "short"
+        },
+        {
+          "alias": "Quality (%)",
+          "colorMode": null,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "dateFormat": "YYYY-MM-DD HH:mm:ss",
+          "decimals": 2,
+          "mappingType": 1,
+          "pattern": "Value #A",
+          "thresholds": [],
+          "type": "number",
+          "unit": "percent"
+        },
+        {
+          "alias": "RSSI (dBm)",
+          "colorMode": null,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "dateFormat": "YYYY-MM-DD HH:mm:ss",
+          "decimals": 2,
+          "mappingType": 1,
+          "pattern": "Value #B",
+          "thresholds": [],
+          "type": "number",
+          "unit": "dBm"
+        },
+        {
+          "alias": "",
+          "colorMode": null,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "dateFormat": "YYYY-MM-DD HH:mm:ss",
+          "decimals": 2,
+          "mappingType": 1,
+          "pattern": "",
+          "thresholds": [],
+          "type": "number",
           "unit": "short"
         },
         {
@@ -962,14 +1066,24 @@
       ],
       "targets": [
         {
-          "expr": "node_network_receive_bytes_total{job='node',device='enp0s20u1',instance=$device} /1000000",
+          "expr": "2 * (node_wifi_station_signal_dbm{job='node',instance=$device} + 100)",
+          "format": "table",
+          "hide": false,
+          "instant": true,
+          "intervalFactor": 1,
+          "legendFormat": "Quality (%)",
+          "refId": "A"
+        },
+        {
+          "expr": "node_wifi_station_signal_dbm{job='node',instance=$device}",
           "format": "table",
           "instant": true,
           "intervalFactor": 1,
-          "refId": "A"
+          "legendFormat": "RSSI (dBm)",
+          "refId": "B"
         }
       ],
-      "title": "Ethernet Received (MB)",
+      "title": "Wifi Signal Strength",
       "transform": "table",
       "type": "table"
     },
@@ -978,10 +1092,10 @@
       "datasource": null,
       "fontSize": "100%",
       "gridPos": {
-        "h": 4,
-        "w": 4,
-        "x": 20,
-        "y": 21
+        "h": 3,
+        "w": 6,
+        "x": 12,
+        "y": 24
       },
       "id": 13,
       "links": [],
@@ -1071,6 +1185,38 @@
             "rgba(237, 129, 40, 0.89)",
             "rgba(50, 172, 45, 0.97)"
           ],
+          "dateFormat": "YYYY-MM-DD HH:mm:ss",
+          "decimals": 2,
+          "mappingType": 1,
+          "pattern": "Value",
+          "thresholds": [],
+          "type": "number",
+          "unit": "decbytes"
+        },
+        {
+          "alias": "",
+          "colorMode": null,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "dateFormat": "YYYY-MM-DD HH:mm:ss",
+          "decimals": 2,
+          "mappingType": 1,
+          "pattern": "__name__",
+          "thresholds": [],
+          "type": "hidden",
+          "unit": "short"
+        },
+        {
+          "alias": "",
+          "colorMode": null,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
           "decimals": 2,
           "pattern": "/.*/",
           "thresholds": [],
@@ -1080,14 +1226,149 @@
       ],
       "targets": [
         {
-          "expr": "node_network_receive_bytes_total{job='node',device='wlp1s0',instance=$device} /1000000",
+          "expr": "node_network_receive_bytes_total{job='node',device='wlp1s0',instance=$device}",
           "format": "table",
           "instant": true,
           "intervalFactor": 1,
           "refId": "A"
         }
       ],
-      "title": "Wifi Received (MB)",
+      "title": "Total Wifi Received",
+      "transform": "table",
+      "type": "table"
+    },
+    {
+      "columns": [],
+      "datasource": null,
+      "fontSize": "100%",
+      "gridPos": {
+        "h": 3,
+        "w": 6,
+        "x": 18,
+        "y": 24
+      },
+      "id": 11,
+      "links": [],
+      "pageSize": null,
+      "scroll": true,
+      "showHeader": true,
+      "sort": {
+        "col": 9,
+        "desc": false
+      },
+      "styles": [
+        {
+          "alias": "Time",
+          "dateFormat": "YYYY-MM-DD HH:mm:ss",
+          "pattern": "Time",
+          "type": "date"
+        },
+        {
+          "alias": "",
+          "colorMode": null,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "dateFormat": "YYYY-MM-DD HH:mm:ss",
+          "decimals": 2,
+          "mappingType": 1,
+          "pattern": "instance",
+          "thresholds": [],
+          "type": "hidden",
+          "unit": "short"
+        },
+        {
+          "alias": "",
+          "colorMode": null,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "dateFormat": "YYYY-MM-DD HH:mm:ss",
+          "decimals": 2,
+          "mappingType": 1,
+          "pattern": "/resin_*/",
+          "thresholds": [],
+          "type": "hidden",
+          "unit": "short"
+        },
+        {
+          "alias": "",
+          "colorMode": null,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "dateFormat": "YYYY-MM-DD HH:mm:ss",
+          "decimals": 2,
+          "mappingType": 1,
+          "pattern": "job",
+          "thresholds": [],
+          "type": "hidden",
+          "unit": "short"
+        },
+        {
+          "alias": "",
+          "colorMode": null,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "dateFormat": "YYYY-MM-DD HH:mm:ss",
+          "decimals": 2,
+          "mappingType": 1,
+          "pattern": "Value",
+          "thresholds": [],
+          "type": "number",
+          "unit": "decbytes"
+        },
+        {
+          "alias": "",
+          "colorMode": null,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "dateFormat": "YYYY-MM-DD HH:mm:ss",
+          "decimals": 2,
+          "mappingType": 1,
+          "pattern": "__name__",
+          "thresholds": [],
+          "type": "hidden",
+          "unit": "short"
+        },
+        {
+          "alias": "",
+          "colorMode": null,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "decimals": 2,
+          "pattern": "/.*/",
+          "thresholds": [],
+          "type": "number",
+          "unit": "short"
+        }
+      ],
+      "targets": [
+        {
+          "expr": "node_network_receive_bytes_total{job='node',device=~'enp0s20.*',instance=$device}",
+          "format": "table",
+          "instant": true,
+          "interval": "",
+          "intervalFactor": 1,
+          "refId": "A"
+        }
+      ],
+      "title": "Total Ethernet Received",
       "transform": "table",
       "type": "table"
     }
@@ -1100,9 +1381,10 @@
       {
         "allValue": null,
         "current": {
+          "selected": false,
           "tags": [],
-          "text": "\"0e74d909dca1d9d4806408b12f3d9d5f.resindevice.io:80\"",
-          "value": "\"0e74d909dca1d9d4806408b12f3d9d5f.resindevice.io:80\""
+          "text": "\"035de0b77cda130b85685d2bef5f0713.resindevice.io:80\"",
+          "value": "\"035de0b77cda130b85685d2bef5f0713.resindevice.io:80\""
         },
         "datasource": "Prometheus",
         "hide": 0,
@@ -1124,7 +1406,7 @@
     ]
   },
   "time": {
-    "from": "now-6h",
+    "from": "now-15m",
     "to": "now"
   },
   "timepicker": {
@@ -1153,7 +1435,7 @@
     ]
   },
   "timezone": "browser",
-  "title": "Single Device",
-  "uid": "singledevice",
-  "version": 1
+  "title": "Single Device 2",
+  "uid": "singledevice2",
+  "version": 6
 }
