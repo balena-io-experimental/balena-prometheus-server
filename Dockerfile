@@ -13,7 +13,7 @@ VOLUME ["/var/lib/grafana"]
 
 EXPOSE 80
 
-RUN apt-get update && apt-get install apt-transport-https
+RUN apt-get update && apt-get install apt-transport-https -yq
 RUN echo 'deb https://packagecloud.io/grafana/stable/debian/ jessie main' >> /etc/apt/sources.list
 RUN curl https://packagecloud.io/gpg.key | apt-key add -
 
