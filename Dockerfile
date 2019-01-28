@@ -13,12 +13,13 @@ VOLUME ["/var/lib/grafana"]
 
 EXPOSE 80
 
-RUN apt-get update && apt-get install apt-transport-https -yq
-RUN echo 'deb https://packagecloud.io/grafana/stable/debian/ jessie main' >> /etc/apt/sources.list
-RUN curl https://packagecloud.io/gpg.key | apt-key add -
+RUN echo 'deb https://packages.grafana.com/oss/deb stable main' >> /etc/apt/sources.list.d/grafana.list
+RUN curl https://packages.grafana.com/gpg.key | apt-key add -
 
 # downloading utils
-RUN apt-get update && apt-get install -y wget build-essential libc6-dev grafana
+RUN apt-get update -y
+RUN apt-get install -y apt-transport-https
+RUN apt-get install grafana -y
 
 WORKDIR /etc
 
