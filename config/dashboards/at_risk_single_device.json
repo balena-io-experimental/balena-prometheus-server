@@ -58,7 +58,7 @@
     "gnetId": null,
     "graphTooltip": 0,
     "id": null,
-    "iteration": 1548704673550,
+    "iteration": 1548711310531,
     "links": [],
     "panels": [
       {
@@ -216,7 +216,7 @@
             "refId": "A"
           }
         ],
-        "thresholds": "120,130,145",
+        "thresholds": "120,140",
         "title": "Temp",
         "type": "singlestat",
         "valueFontSize": "80%",
@@ -1628,7 +1628,7 @@
       ]
     },
     "time": {
-      "from": "now-15m",
+      "from": "now-48h",
       "to": "now"
     },
     "timepicker": {
@@ -1659,5 +1659,5 @@
     "timezone": "browser",
     "title": "At Risk Single Device",
     "uid": "atrisksingledevice",
-    "version": 3
+    "version": 5
   }

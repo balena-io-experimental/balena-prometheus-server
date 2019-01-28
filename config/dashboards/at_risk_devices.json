@@ -75,10 +75,14 @@
         },
         "id": 22,
         "legend": {
+          "alignAsTable": false,
           "avg": false,
           "current": false,
+          "hideEmpty": true,
+          "hideZero": true,
           "max": false,
           "min": false,
+          "rightSide": false,
           "show": true,
           "total": false,
           "values": false
@@ -111,7 +115,10 @@
             "expr": "topk(10,(node_hwmon_temp_celsius{chip=\"iwlwifi\",sensor=\"temp1\"})*9/5+32)",
             "format": "time_series",
             "hide": false,
+            "instant": false,
+            "interval": "",
             "intervalFactor": 1,
+            "legendFormat": "{{instance}}",
             "refId": "A"
           }
         ],
@@ -229,7 +236,7 @@
             "step": 600
           }
         ],
-        "thresholds": "5,10,20",
+        "thresholds": "120,140",
         "title": "Hottest",
         "type": "singlestat",
         "valueFontSize": "80%",
@@ -240,7 +247,7 @@
             "value": "null"
           }
         ],
-        "valueName": "avg"
+        "valueName": "max"
       },
       {
         "cacheTimeout": null,
@@ -316,7 +323,7 @@
             "step": 600
           }
         ],
-        "thresholds": "5,10,20",
+        "thresholds": "120,130,145",
         "title": "Coldest",
         "type": "singlestat",
         "valueFontSize": "80%",
@@ -403,7 +410,7 @@
             "step": 600
           }
         ],
-        "thresholds": "5,10,20",
+        "thresholds": "15,25",
         "title": "Total Devices at Risk",
         "type": "singlestat",
         "valueFontSize": "80%",
@@ -598,10 +605,10 @@
         ],
         "targets": [
           {
-            "expr": "topk(10,(node_hwmon_temp_celsius{chip=\"iwlwifi\",sensor=\"temp1\"})*9/5+32)",
+            "expr": "sort_desc(topk(10,(node_hwmon_temp_celsius{chip=\"iwlwifi\",sensor=\"temp1\"})*9/5+32>145))",
             "format": "table",
             "hide": false,
-            "instant": false,
+            "instant": true,
             "intervalFactor": 1,
             "legendFormat": "{{resin_device_name}}",
             "refId": "A"
@@ -641,7 +648,18 @@
         },
         "lines": true,
         "linewidth": 2,
-        "links": [],
+        "links": [
+          {
+            "dashUri": "db/at-risk-single-device",
+            "dashboard": "At Risk Single Device",
+            "includeVars": true,
+            "keepTime": true,
+            "params": "device=$instance",
+            "targetBlank": true,
+            "title": "At Risk Single Device",
+            "type": "dashboard"
+          }
+        ],
         "nullPointMode": "connected",
         "percentage": false,
         "pointradius": 5,
@@ -1482,7 +1500,7 @@
       "list": []
     },
     "time": {
-      "from": "now-15m",
+      "from": "now-1h",
       "to": "now"
     },
     "timepicker": {
@@ -1513,5 +1531,5 @@
     "timezone": "browser",
     "title": "At Risk Devices",
     "uid": "atriskdevices",
-    "version": 34
+    "version": 54
   }
